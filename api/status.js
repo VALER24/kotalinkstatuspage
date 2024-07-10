@@ -1,6 +1,7 @@
 // api/status.js
 module.exports = (req, res) => {
     const status = {
+        kotalink: 'Okay'
         allstar: 'online',
         echolink1: 'online',
         echolink2: 'offline',

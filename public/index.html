@@ -89,42 +89,38 @@
 </head>
 <body>
     <h1>KOTA-LINK DIAGRAM</h1>
+    <div id="KOTALINK" class="box">KOTALINK STATUS<span class="status"></span></div>
+</div>
     <div class="diagram">
         <div class="row" style="position: relative;">
             <div id="allstar" class="box">Allstar 57686<span class="status"></span></div>
-            <div id="allstar-to-echolink" class="line" style="width: 150px; top: 25px; left: 100px;"></div>
-            <div id="allstar-to-analog" class="line" style="height: 50px; top: 25px; left: 100px;" class="vertical-line"></div>
-        </div>
+           </div>
         <div class="row">
-            <div class="line" id="allstar-echolink-line"></div>
+            
             <div id="echolink1" class="box">Echolink: N0DYG-R 910094<span class="status"></span></div>
-            <div class="line" id="echolink1-line"></div>
+            
             <div id="echolink2" class="box">Echolink: HOIP#15031<span class="status"></span></div>
-            <div class="line" id="echolink2-line"></div>
+        
             <div id="echolink3" class="box">Echolink: HHUS#94177<span class="status"></span></div>
         </div>
         <div class="row">
-            <div class="line" id="analog-line"></div>
+            
             <div class="box">Analog Reflector</div>
         </div>
         <div class="row">
-            <div class="line" id="ab-mb-line"></div>
+            
             <div id="ab_mb" class="box">AB + MB<span class="status"></span></div>
-            <div class="line" id="mb-line"></div>
+           
             <div id="mb" class="box">MB<span class="status"></span></div>
-            <div class="line" id="usrp2p25-line"></div>
+            
             <div id="usrp2p25" class="box">USRP2P25<span class="status"></span></div>
         </div>
         <div class="row">
-            <div class="line" id="dmr-line"></div>
             <div id="dmr" class="box green">DMR TGIF: 350<span class="status"></span></div>
-            <div class="line" id="ysf-line"></div>
             <div id="ysf" class="box green">YSF: US-KOTA-LINK 57686<span class="status"></span></div>
-            <div class="line" id="p25-line"></div>
             <div id="p25" class="box green">P25: 65103<span class="status"></span></div>
         </div>
         <div class="row">
-            <div class="horizontal-line"></div>
             <div class="box gray">We plan to add these later on: M17, NXDN, DSTAR</div>
         </div>
     </div>
@@ -133,6 +129,7 @@
             const response = await fetch('/api/status');
             const status = await response.json();
 
+            updateStatus('KOTALINK', status.kotalink);
             updateStatus('allstar', status.allstar);
             updateStatus('echolink1', status.echolink1);
             updateStatus('echolink2', status.echolink2);
