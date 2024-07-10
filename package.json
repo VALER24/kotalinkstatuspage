@@ -1,0 +1,9 @@
+{
+  "name": "klbackend",
+  "version": "1.0.0",
+  "main": "api/status.js",
+  "license": "MIT",
+  "scripts": {
+    "vercel-build": "npm install"
+  }
+}
