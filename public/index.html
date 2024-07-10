@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KOTA-LINK Status</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>KOTA-LINK DIAGRAM</h1>
@@ -70,10 +70,10 @@
             const svg = document.getElementById('svg');
             svg.innerHTML = '';
 
+            drawLine(svg, 'allstar', 'analog');
             drawLine(svg, 'allstar', 'echolink1');
             drawLine(svg, 'allstar', 'echolink2');
             drawLine(svg, 'allstar', 'echolink3');
-            drawLine(svg, 'allstar', 'analog');
         }
 
         function drawLine(svg, id1, id2) {
@@ -91,6 +91,15 @@
             line.setAttribute('x2', x2);
             line.setAttribute('y2', y2);
             line.classList.add('line');
+
+            if (document.getElementById(id1).classList.contains('green') && document.getElementById(id2).classList.contains('green')) {
+                line.classList.add('green');
+            } else if (document.getElementById(id1).classList.contains('yellow') || document.getElementById(id2).classList.contains('yellow')) {
+                line.classList.add('yellow');
+            } else {
+                line.classList.add('red');
+            }
+
             svg.appendChild(line);
         }
 
