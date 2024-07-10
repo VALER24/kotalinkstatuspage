@@ -130,7 +130,6 @@
             const response = await fetch('/api/status');
             const status = await response.json();
 
-            updateStatus('KOTALINK', status.kotalink);
             updateStatus('allstar', status.allstar);
             updateStatus('echolink1', status.echolink1);
             updateStatus('echolink2', status.echolink2);
@@ -171,6 +170,6 @@
         setInterval(fetchStatus, 10000);
     </script>
     <p>Frontend Built By: Henry KD9YWF for KidsOnTheAir</p>
-    
+
 </body>
 </html>
