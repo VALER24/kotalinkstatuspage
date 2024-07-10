@@ -17,12 +17,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
         .row {
             display: flex;
             justify-content: center;
             margin: 10px 0;
-            position: relative;
         }
         .box {
             background-color: #ff7f00;
@@ -31,7 +31,6 @@
             margin: 0 10px;
             display: flex;
             align-items: center;
-            position: relative;
         }
         .box.green {
             background-color: #00c853;
@@ -47,86 +46,57 @@
             margin-top: 5px;
             font-weight: bold;
         }
-        .line {
-            height: 2px;
-            background-color: #000000;
+        svg {
             position: absolute;
-            z-index: -1;
-        }
-        .line.green {
-            background-color: #00c853;
-        }
-        .line.yellow {
-            background-color: #ffeb3b;
-        }
-        .line.red {
-            background-color: #f44336;
-        }
-        .horizontal-line {
-            height: 2px;
+            top: 0;
+            left: 0;
             width: 100%;
-            background-color: #000000;
-            position: absolute;
-            top: 50%;
-            z-index: -1;
+            height: 100%;
+            pointer-events: none;
         }
-        .vertical-line {
-            width: 2px;
-            background-color: #000000;
-            position: absolute;
-            z-index: -1;
+        line {
+            stroke: #000000;
+            stroke-width: 2;
         }
-        .vertical-line.green {
-            background-color: #00c853;
+        line.green {
+            stroke: #00c853;
         }
-        .vertical-line.yellow {
-            background-color: #ffeb3b;
+        line.yellow {
+            stroke: #ffeb3b;
         }
-        .vertical-line.red {
-            background-color: #f44336;
+        line.red {
+            stroke: #f44336;
         }
     </style>
 </head>
 <body>
     <h1>KOTA-LINK DIAGRAM</h1>
     <div class="diagram">
-        <div class="row" style="position: relative;">
+        <div class="row" id="row1">
             <div id="allstar" class="box">Allstar 57686<span class="status"></span></div>
-            <div id="allstar-to-echolink" class="line" style="width: 150px; top: 25px; left: 100px;"></div>
-            <div id="allstar-to-analog" class="line" style="height: 50px; top: 25px; left: 100px;" class="vertical-line"></div>
         </div>
-        <div class="row">
-            <div class="line" id="allstar-echolink-line"></div>
+        <div class="row" id="row2">
             <div id="echolink1" class="box">Echolink: N0DYG-R 910094<span class="status"></span></div>
-            <div class="line" id="echolink1-line"></div>
             <div id="echolink2" class="box">Echolink: HOIP#15031<span class="status"></span></div>
-            <div class="line" id="echolink2-line"></div>
             <div id="echolink3" class="box">Echolink: HHUS#94177<span class="status"></span></div>
         </div>
-        <div class="row">
-            <div class="line" id="analog-line"></div>
-            <div class="box">Analog Reflector</div>
+        <div class="row" id="row3">
+            <div id="analog" class="box">Analog Reflector<span class="status"></span></div>
         </div>
-        <div class="row">
-            <div class="line" id="ab-mb-line"></div>
+        <div class="row" id="row4">
             <div id="ab_mb" class="box">AB + MB<span class="status"></span></div>
-            <div class="line" id="mb-line"></div>
             <div id="mb" class="box">MB<span class="status"></span></div>
-            <div class="line" id="usrp2p25-line"></div>
             <div id="usrp2p25" class="box">USRP2P25<span class="status"></span></div>
         </div>
-        <div class="row">
-            <div class="line" id="dmr-line"></div>
+        <div class="row" id="row5">
             <div id="dmr" class="box green">DMR TGIF: 350<span class="status"></span></div>
-            <div class="line" id="ysf-line"></div>
             <div id="ysf" class="box green">YSF: US-KOTA-LINK 57686<span class="status"></span></div>
-            <div class="line" id="p25-line"></div>
             <div id="p25" class="box green">P25: 65103<span class="status"></span></div>
         </div>
-        <div class="row">
-            <div class="horizontal-line"></div>
+        <div class="row" id="row6">
             <div class="box gray">We plan to add these later on: M17, NXDN, DSTAR</div>
         </div>
+        <svg id="svg"></svg>
     </div>
     <script>
         async function fetchStatus() {
@@ -137,6 +107,7 @@
             updateStatus('echolink1', status.echolink1);
             updateStatus('echolink2', status.echolink2);
             updateStatus('echolink3', status.echolink3);
+            updateStatus('analog', status.analog);
             updateStatus('ab_mb', status.ab_mb);
             updateStatus('mb', status.mb);
             updateStatus('usrp2p25', status.usrp2p25);
@@ -147,29 +118,47 @@
 
         function updateStatus(id, status) {
             const element = document.getElementById(id);
-            const line = document.getElementById(`${id}-line`);
-            const allstarLine = document.getElementById(`allstar-to-${id}`);
-
             element.querySelector('.status').textContent = ` (${status})`;
             element.classList.remove('green', 'yellow', 'red');
-            if (allstarLine) allstarLine.classList.remove('green', 'yellow', 'red');
-
             if (status === 'online') {
                 element.classList.add('green');
-                if (line) line.classList.add('green');
-                if (allstarLine) allstarLine.classList.add('green');
             } else if (status === 'unlinked') {
                 element.classList.add('yellow');
-                if (line) line.classList.add('yellow');
-                if (allstarLine) allstarLine.classList.add('yellow');
             } else {
                 element.classList.add('red');
-                if (line) line.classList.add('red');
-                if (allstarLine) allstarLine.classList.add('red');
             }
         }
 
-        fetchStatus();
+        function drawLines() {
+            const svg = document.getElementById('svg');
+            svg.innerHTML = '';
+
+            drawLine(svg, 'allstar', 'echolink1');
+            drawLine(svg, 'allstar', 'echolink2');
+            drawLine(svg, 'allstar', 'echolink3');
+            drawLine(svg, 'allstar', 'analog');
+        }
+
+        function drawLine(svg, id1, id2) {
+            const box1 = document.getElementById(id1).getBoundingClientRect();
+            const box2 = document.getElementById(id2).getBoundingClientRect();
+
+            const x1 = box1.left + box1.width / 2;
+            const y1 = box1.top + box1.height / 2;
+            const x2 = box2.left + box2.width / 2;
+            const y2 = box2.top + box2.height / 2;
+
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', x1);
+            line.setAttribute('y1', y1);
+            line.setAttribute('x2', x2);
+            line.setAttribute('y2', y2);
+            line.classList.add('line');
+            svg.appendChild(line);
+        }
+
+        window.addEventListener('resize', drawLines);
+        fetchStatus().then(drawLines);
         setInterval(fetchStatus, 10000);
     </script>
 </body>
