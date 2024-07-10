@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #4e54c8, #8f94fb);
-            color: #fff;
+            background-color: #ffffff;
+            color: #000000;
             text-align: center;
             padding: 20px;
         }
@@ -21,6 +21,7 @@
             display: flex;
             justify-content: center;
             margin: 10px 0;
+            position: relative;
         }
         .box {
             background-color: #ff7f00;
@@ -29,19 +30,46 @@
             margin: 0 10px;
             display: flex;
             align-items: center;
+            position: relative;
         }
         .box.green {
             background-color: #00c853;
         }
-        .box.blue {
-            background-color: #00b0ff;
+        .box.yellow {
+            background-color: #ffeb3b;
+            color: #000000;
         }
-        .box.gray {
-            background-color: #757575;
+        .box.red {
+            background-color: #f44336;
         }
         .status {
             margin-top: 5px;
             font-weight: bold;
+        }
+        .line {
+            height: 2px;
+            background-color: #000000;
+            position: absolute;
+            top: 50%;
+            width: 100px;
+            z-index: -1;
+        }
+        .line.green {
+            background-color: #00c853;
+        }
+        .line.yellow {
+            background-color: #ffeb3b;
+        }
+        .line.red {
+            background-color: #f44336;
+        }
+        .horizontal-line {
+            height: 2px;
+            width: 100%;
+            background-color: #000000;
+            position: absolute;
+            top: 50%;
+            z-index: -1;
         }
     </style>
 </head>
@@ -52,22 +80,31 @@
             <div id="allstar" class="box">Allstar 57686<span class="status"></span></div>
         </div>
         <div class="row">
+            <div class="line" id="allstar-line"></div>
             <div id="echolink" class="box">Echolink: N0DYG-R 910094 HOIP#15031 HHUS#94177<span class="status"></span></div>
         </div>
         <div class="row">
-            <div class="box blue">Analog Reflector</div>
+            <div class="line" id="analog-line"></div>
+            <div class="box">Analog Reflector</div>
         </div>
         <div class="row">
+            <div class="line" id="ab-mb-line"></div>
             <div id="ab_mb" class="box">AB + MB<span class="status"></span></div>
+            <div class="line" id="mb-line"></div>
             <div id="mb" class="box">MB<span class="status"></span></div>
+            <div class="line" id="usrp2p25-line"></div>
             <div id="usrp2p25" class="box">USRP2P25<span class="status"></span></div>
         </div>
         <div class="row">
+            <div class="line" id="dmr-line"></div>
             <div id="dmr" class="box green">DMR TGIF: 350<span class="status"></span></div>
+            <div class="line" id="ysf-line"></div>
             <div id="ysf" class="box green">YSF: US-KOTA-LINK 57686<span class="status"></span></div>
+            <div class="line" id="p25-line"></div>
             <div id="p25" class="box green">P25: 65103<span class="status"></span></div>
         </div>
         <div class="row">
+            <div class="horizontal-line"></div>
             <div class="box gray">We plan to add these later on: M17, NXDN, DSTAR</div>
         </div>
     </div>
@@ -76,14 +113,33 @@
             const response = await fetch('/api/status');
             const status = await response.json();
 
-            document.getElementById('allstar').querySelector('.status').textContent = ` (${status.allstar})`;
-            document.getElementById('echolink').querySelector('.status').textContent = ` (${status.echolink})`;
-            document.getElementById('ab_mb').querySelector('.status').textContent = ` (${status.ab_mb})`;
-            document.getElementById('mb').querySelector('.status').textContent = ` (${status.mb})`;
-            document.getElementById('usrp2p25').querySelector('.status').textContent = ` (${status.usrp2p25})`;
-            document.getElementById('dmr').querySelector('.status').textContent = ` (${status.dmr})`;
-            document.getElementById('ysf').querySelector('.status').textContent = ` (${status.ysf})`;
-            document.getElementById('p25').querySelector('.status').textContent = ` (${status.p25})`;
+            updateStatus('allstar', status.allstar);
+            updateStatus('echolink', status.echolink);
+            updateStatus('ab_mb', status.ab_mb);
+            updateStatus('mb', status.mb);
+            updateStatus('usrp2p25', status.usrp2p25);
+            updateStatus('dmr', status.dmr);
+            updateStatus('ysf', status.ysf);
+            updateStatus('p25', status.p25);
+        }
+
+        function updateStatus(id, status) {
+            const element = document.getElementById(id);
+            const line = document.getElementById(`${id}-line`);
+
+            element.querySelector('.status').textContent = ` (${status})`;
+            element.classList.remove('green', 'yellow', 'red');
+
+            if (status === 'online') {
+                element.classList.add('green');
+                if (line) line.classList.add('green');
+            } else if (status === 'unlinked') {
+                element.classList.add('yellow');
+                if (line) line.classList.add('yellow');
+            } else {
+                element.classList.add('red');
+                if (line) line.classList.add('red');
+            }
         }
 
         fetchStatus();
