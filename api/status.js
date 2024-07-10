@@ -4,7 +4,7 @@ module.exports = (req, res) => {
         allstar: 'online',
         echolink: 'offline',
         ab_mb: 'online',
-        mb: 'online',
+        mb: 'unlinked',
         usrp2p25: 'offline',
         dmr: 'online',
         ysf: 'online',
