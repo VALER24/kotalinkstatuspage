@@ -81,7 +81,11 @@
         </div>
         <div class="row">
             <div class="line" id="allstar-line"></div>
-            <div id="echolink" class="box">Echolink: N0DYG-R 910094 HOIP#15031 HHUS#94177<span class="status"></span></div>
+            <div id="echolink1" class="box">Echolink: N0DYG-R 910094<span class="status"></span></div>
+            <div class="line" id="echolink1-line"></div>
+            <div id="echolink2" class="box">Echolink: HOIP#15031<span class="status"></span></div>
+            <div class="line" id="echolink2-line"></div>
+            <div id="echolink3" class="box">Echolink: HHUS#94177<span class="status"></span></div>
         </div>
         <div class="row">
             <div class="line" id="analog-line"></div>
@@ -114,7 +118,9 @@
             const status = await response.json();
 
             updateStatus('allstar', status.allstar);
-            updateStatus('echolink', status.echolink);
+            updateStatus('echolink1', status.echolink1);
+            updateStatus('echolink2', status.echolink2);
+            updateStatus('echolink3', status.echolink3);
             updateStatus('ab_mb', status.ab_mb);
             updateStatus('mb', status.mb);
             updateStatus('usrp2p25', status.usrp2p25);
