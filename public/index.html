@@ -14,6 +14,15 @@
             padding: 20px;
             position: relative;
         }
+        .status-box {
+            background-color: yellow;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
         .diagram {
             display: flex;
             flex-direction: column;
@@ -90,8 +99,8 @@
 </head>
 <body>
     <h1>KOTA-LINK DIAGRAM</h1>
-    <h2>KOTALINK: OKAY</h2>
-    <div class="diagram">
+    <div class="status-box" id="statusBox">KOTALINK: TROUBLE</div>
+        <div class="diagram">
         <div class="row" style="position: relative;">
             <div id="allstar" class="box">Allstar 57686<span class="status"></span></div>
            </div>

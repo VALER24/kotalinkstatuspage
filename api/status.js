@@ -1,11 +1,10 @@
 // api/status.js
 module.exports = (req, res) => {
     const status = {
-        kotalink: 'Okay',
-        allstar: 'online',
-        echolink1: 'online',
+        allstar: 'offline',
+        echolink1: 'unlinked',
         echolink2: 'offline',
-        echolink3: 'unlinked',
+        echolink3: 'offline',
         analog: 'online',
         ab_mb: 'online',
         mb: 'unlinked',
