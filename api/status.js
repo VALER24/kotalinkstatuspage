@@ -2,7 +2,9 @@
 module.exports = (req, res) => {
     const status = {
         allstar: 'online',
-        echolink: 'offline',
+        echolink1: 'online',
+        echolink2: 'offline',
+        echolink3: 'unlinked',
         ab_mb: 'online',
         mb: 'unlinked',
         usrp2p25: 'offline',
