@@ -11,6 +11,7 @@
             color: #000000;
             text-align: center;
             padding: 20px;
+            position: relative;
         }
         .diagram {
             display: flex;
@@ -50,8 +51,6 @@
             height: 2px;
             background-color: #000000;
             position: absolute;
-            top: 50%;
-            width: 100px;
             z-index: -1;
         }
         .line.green {
@@ -71,16 +70,33 @@
             top: 50%;
             z-index: -1;
         }
+        .vertical-line {
+            width: 2px;
+            background-color: #000000;
+            position: absolute;
+            z-index: -1;
+        }
+        .vertical-line.green {
+            background-color: #00c853;
+        }
+        .vertical-line.yellow {
+            background-color: #ffeb3b;
+        }
+        .vertical-line.red {
+            background-color: #f44336;
+        }
     </style>
 </head>
 <body>
     <h1>KOTA-LINK DIAGRAM</h1>
     <div class="diagram">
-        <div class="row">
+        <div class="row" style="position: relative;">
             <div id="allstar" class="box">Allstar 57686<span class="status"></span></div>
+            <div id="allstar-to-echolink" class="line" style="width: 150px; top: 25px; left: 100px;"></div>
+            <div id="allstar-to-analog" class="line" style="height: 50px; top: 25px; left: 100px;" class="vertical-line"></div>
         </div>
         <div class="row">
-            <div class="line" id="allstar-line"></div>
+            <div class="line" id="allstar-echolink-line"></div>
             <div id="echolink1" class="box">Echolink: N0DYG-R 910094<span class="status"></span></div>
             <div class="line" id="echolink1-line"></div>
             <div id="echolink2" class="box">Echolink: HOIP#15031<span class="status"></span></div>
@@ -132,19 +148,24 @@
         function updateStatus(id, status) {
             const element = document.getElementById(id);
             const line = document.getElementById(`${id}-line`);
+            const allstarLine = document.getElementById(`allstar-to-${id}`);
 
             element.querySelector('.status').textContent = ` (${status})`;
             element.classList.remove('green', 'yellow', 'red');
+            if (allstarLine) allstarLine.classList.remove('green', 'yellow', 'red');
 
             if (status === 'online') {
                 element.classList.add('green');
                 if (line) line.classList.add('green');
+                if (allstarLine) allstarLine.classList.add('green');
             } else if (status === 'unlinked') {
                 element.classList.add('yellow');
                 if (line) line.classList.add('yellow');
+                if (allstarLine) allstarLine.classList.add('yellow');
             } else {
                 element.classList.add('red');
                 if (line) line.classList.add('red');
+                if (allstarLine) allstarLine.classList.add('red');
             }
         }
 
