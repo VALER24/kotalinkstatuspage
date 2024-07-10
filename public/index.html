@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOTA-LINK Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .link {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .online {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .offline {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>KOTA-LINK Status</h1>
+    <div id="allstar" class="link">Allstar: <span>Status</span></div>
+    <div id="echolink" class="link">Echolink: <span>Status</span></div>
+    <div id="dmr" class="link">DMR TGIF: <span>Status</span></div>
+    <div id="ysf" class="link">YSF: <span>Status</span></div>
+    <div id="p25" class="link">P25: <span>Status</span></div>
+
+    <script>
+        async function fetchStatus() {
+            const response = await fetch('/api/status');
+            const status = await response.json();
+
+            document.getElementById('allstar').className = `link ${status.allstar}`;
+            document.getElementById('allstar').querySelector('span').textContent = status.allstar;
+
+            document.getElementById('echolink').className = `link ${status.echolink}`;
+            document.getElementById('echolink').querySelector('span').textContent = status.echolink;
+
+            document.getElementById('dmr').className = `link ${status.dmr}`;
+            document.getElementById('dmr').querySelector('span').textContent = status.dmr;
+
+            document.getElementById('ysf').className = `link ${status.ysf}`;
+            document.getElementById('ysf').querySelector('span').textContent = status.ysf;
+
+            document.getElementById('p25').className = `link ${status.p25}`;
+            document.getElementById('p25').querySelector('span').textContent = status.p25;
+        }
+
+        fetchStatus();
+        setInterval(fetchStatus, 10000);
+    </script>
+</body>
+</html>
