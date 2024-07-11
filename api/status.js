@@ -1,16 +1,14 @@
 // api/status.js
 module.exports = (req, res) => {
     const status = {
-        allstar: 'offline',
-        echolink1: 'unlinked',
-        echolink2: 'offline',
-        echolink3: 'offline',
-        analog: 'online',
+        allstar: 'online',
+        echolink1: 'offline',
+        analog_reflector: 'online',
         ab_mb: 'online',
-        mb: 'unlinked',
-        usrp2p25: 'offline',
+        mb2: 'unlinked',
+        usrp2p25: 'online',
         dmr: 'online',
-        ysf: 'online',
+        ysf: 'offline',
         p25: 'offline',
     };
     res.json(status);
