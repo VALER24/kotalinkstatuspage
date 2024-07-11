@@ -1,9 +1,12 @@
 {
-  "name": "klbackend",
+  "name": "kl-backend",
   "version": "1.0.0",
-  "main": "api/status.js",
+  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "vercel-build": "npm install"
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
   }
 }
