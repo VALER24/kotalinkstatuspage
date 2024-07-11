@@ -3,6 +3,8 @@ module.exports = (req, res) => {
     const status = {
         allstar: 'online',
         echolink1: 'offline',
+        hhus: 'offline',
+        hoip: 'offline',
         analog_reflector: 'online',
         ab_mb: 'online',
         mb2: 'unlinked',
