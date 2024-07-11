@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
 
         res.status(200).json(status);
     } catch (error) {
-        console.error('Error fetching ASL status:', error);
-        res.status(500).json({ error: 'Error fetching ASL status' });
+        console.error('Error fetching ASL status:', error.message);
+        res.status(500).json({ error: 'Error fetching ASL status', details: error.message });
     }
 };
