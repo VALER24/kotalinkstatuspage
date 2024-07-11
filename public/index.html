@@ -23,30 +23,32 @@
             margin-bottom: 10px;
             font-weight: bold;
         }
-        
         .diagram {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .row {
-            color: #000000;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             margin: 10px 0;
-            position: relative;
+            width: 100%;
         }
         .box {
             background-color: #ff7f00;
+            color: #000000;
             padding: 10px 20px;
             border-radius: 8px;
-            margin: 0 10px;
+            margin: 5px 0;
+            width: 90%;
             display: flex;
             align-items: center;
-            position: relative;
+            justify-content: center;
         }
         .box.green {
             background-color: #00c853;
+            color: #000000;
         }
         .box.yellow {
             background-color: #ffeb3b;
@@ -54,48 +56,21 @@
         }
         .box.red {
             background-color: #f44336;
+            color: #000000;
         }
         .status {
             margin-top: 5px;
             font-weight: bold;
         }
-        .line {
-            height: 2px;
-            background-color: white;
-            position: absolute;
-            z-index: -1;
-        }
-        .line.green {
-            background-color: #00c853;
-        }
-        .line.yellow {
-            background-color: #ffeb3b;
-        }
-        .line.red {
-            background-color: #f44336;
-        }
-        .horizontal-line {
-            height: 2px;
-            width: 100%;
-            background-color: white;
-            position: absolute;
-            top: 50%;
-            z-index: -1;
-        }
-        .vertical-line {
-            width: 2px;
-            background-color: white;
-            position: absolute;
-            z-index: -1;
-        }
-        .vertical-line.green {
-            background-color: white;
-        }
-        .vertical-line.yellow {
-            background-color: white;
-        }
-        .vertical-line.red {
-            background-color: white;
+        @media (min-width: 768px) {
+            .row {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .box {
+                width: auto;
+                margin: 0 10px;
+            }
         }
     </style>
 </head>
@@ -112,29 +87,22 @@
     <h1>KOTA-LINK DIAGRAM</h1>
     <div class="status-box" id="statusBox">KOTALINK: TROUBLE</div>
     <h3>KOTALINK:</h3>
-        <div class="diagram">
-        <div class="row" style="position: relative;">
-            <div id="allstar" class="box">Allstar 57686<span class="status"></span></div>
-           </div>
-    <h3>Linked by ECHOLINK:</h3>
+    <div class="diagram">
         <div class="row">
-            
+            <div id="allstar" class="box">Allstar 57686<span class="status"></span></div>
+        </div>
+        <h3>Linked by ECHOLINK:</h3>
+        <div class="row">
             <div id="echolink1" class="box">N0DYG-R 910094<span class="status"></span></div>
-            
             <div id="echolink2" class="box">HOIP#15031<span class="status"></span></div>
-        
             <div id="echolink3" class="box">HHUS#94177<span class="status"></span></div>
         </div>
         <div class="row">
-            
             <h3 style="color: white;">Analog Reflector:</h3>
         </div>
         <div class="row">
-            
             <div id="ab_mb" class="box">AB + MB<span class="status"></span></div>
-           
             <div id="mb" class="box">MB<span class="status"></span></div>
-            
             <div id="usrp2p25" class="box">USRP2P25<span class="status"></span></div>
         </div>
         <div class="row">
@@ -142,7 +110,6 @@
             <div id="ysf" class="box green">YSF: US-KOTA-LINK 57686<span class="status"></span></div>
             <div id="p25" class="box green">P25: 65103<span class="status"></span></div>
         </div>
-    
     </div>
     <script>
         async function fetchStatus() {
