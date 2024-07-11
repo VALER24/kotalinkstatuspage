@@ -1,16 +1,10 @@
 {
+  "version": 2,
   "builds": [
-    {
-      "src": "api/status.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "public/index.html",
-      "use": "@vercel/static"
-    }
+    { "src": "api/status.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/status.js" },
+    { "src": "/api/status", "dest": "/api/status.js" },
     { "src": "/(.*)", "dest": "/public/index.html" }
   ]
 }
